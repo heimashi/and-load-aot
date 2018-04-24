@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+apply plugin: 'com.novoda.bintray-release'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+
+publish {
+    userOrg = 'rongandroid'
+    groupId = 'com.rong360.srouter'
+    artifactId = 'srouter-annotation'
+    publishVersion = '1.0.4'
+    desc = 'srouter annotation'
+    website = 'https://github.com/heimashi/DemoIt'
+}

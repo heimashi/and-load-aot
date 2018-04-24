@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 26
+
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':load-aot-annotation')
+}
+
+
+publish {
+    userOrg = 'rongandroid'
+    groupId = 'com.rong360.srouter'
+    artifactId = 'srouter-api'
+    publishVersion = '1.0.4'
+    desc = 'srouter api'
+    website = 'https://github.com/heimashi/DemoIt'
+}
