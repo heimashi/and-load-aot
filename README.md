@@ -29,9 +29,9 @@ Usage
 
 - 在项目的build.gradle中添加api依赖库以及编译时的注解处理器
 ```groovy
-    annotationProcessor 'com.sw.aot.load:load-aot-compiler:1.0.0'
-    implementation 'com.sw.aot.load:load-aot-annotation:1.0.0'
-    implementation 'com.sw.aot.load:load-aot-api:1.0.0'
+    annotationProcessor 'com.sw.aot.load:load-aot-compiler:1.0.1'
+    implementation 'com.sw.aot.load:load-aot-annotation:1.0.1'
+    implementation 'com.sw.aot.load:load-aot-api:1.0.1'
 ```
 
 - 添加注解处理器的配置信息AOT_INDEX，会在编译器生成该类ExampleAotIndex.java，该类里面含有加载方法的路由信息

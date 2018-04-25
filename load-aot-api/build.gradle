@@ -16,8 +16,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':load-aot-annotation')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':load-aot-annotation')
 }
 
 
@@ -25,7 +25,7 @@ publish {
     userOrg = 'heimashi'
     groupId = 'com.sw.aot.load'
     artifactId = 'load-aot-api'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'Android load AOT api'
     website = 'https://github.com/heimashi/and-load-aot'
 }

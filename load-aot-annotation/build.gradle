@@ -13,7 +13,7 @@ publish {
     userOrg = 'heimashi'
     groupId = 'com.sw.aot.load'
     artifactId = 'load-aot-annotation'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'Android load AOT annotation'
     website = 'https://github.com/heimashi/and-load-aot'
 }

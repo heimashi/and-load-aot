@@ -31,8 +31,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    annotationProcessor project(':load-aot-compiler')
-    implementation project(':load-aot-api')
-    implementation project(':load-aot-annotation')
+//    annotationProcessor project(':load-aot-compiler')
+//    implementation project(':load-aot-api')
+//    implementation project(':load-aot-annotation')
+    annotationProcessor 'com.sw.aot.load:load-aot-compiler:1.0.1'
+    implementation 'com.sw.aot.load:load-aot-annotation:1.0.1'
+    implementation 'com.sw.aot.load:load-aot-api:1.0.1'
 
 }
