@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class ExampleActivity extends Activity{
 
     private TextView textView;
+    private String aotTaskKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +28,9 @@ public class ExampleActivity extends Activity{
     }
 
     private void initData(){
-        String taskKey = getIntent().getStringExtra("AOT_LOADER_TASK");
-        if(AotLoader.isValidTask(taskKey)){
-            AotLoader.consume(taskKey, listener);
+        aotTaskKey = getIntent().getStringExtra("AOT_LOADER_TASK");
+        if(AotLoader.isValidTask(aotTaskKey)){
+            AotLoader.consume(aotTaskKey, listener);
         }else {
             loadMockData().setResultListener(listener);
         }
@@ -47,6 +48,12 @@ public class ExampleActivity extends Activity{
 
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AotLoader.unRegister(aotTaskKey);
+    }
 
     @AOTLoad(router = "/Example/LoadMockData", desc = "mock load async data")
     public ResultData<String> loadMockData(){

@@ -93,5 +93,18 @@ class TaskManager {
         }
     }
 
+    void unRegisterTask(String taskKey) {
+        if (validTaskMap.containsKey(taskKey)) {
+            AotLog.d("CANCEL: " + taskKey);
+            validTaskMap.remove(taskKey);
+        }
+        if (taskResult.containsKey(taskKey)) {
+            ResultData data = taskResult.get(taskKey);
+            if (data != null) {
+                data.setResultListener(null);
+            }
+            taskResult.remove(taskKey);
+        }
+    }
 }
 

@@ -27,4 +27,8 @@ public class AotLoader {
         handler().consumeTask(taskKey, listener);
     }
 
+    public static void unRegister(String taskKey) {
+        handler().unRegisterTask(taskKey);
+    }
+
 }
