@@ -48,7 +48,7 @@ public class ExampleActivity extends Activity{
         }
     };
 
-    @AOTLoad(router = "example_load_mock_data")
+    @AOTLoad(router = "/Example/LoadMockData", desc = "mock load async data")
     public ResultData<String> loadMockData(){
         final ResultData<String> result = new ResultData<String>();
         new Thread(new Runnable() {
@@ -68,5 +68,6 @@ public class ExampleActivity extends Activity{
         }).start();
         return result;
     }
+
 
 }

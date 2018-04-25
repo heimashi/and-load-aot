@@ -13,15 +13,15 @@ class TaskManager {
 
     private final AtomicInteger taskIdGenerator = new AtomicInteger(0);
 
-    private final ConcurrentHashMap<String, String> taskMap = new ConcurrentHashMap<>();
+    //private final ConcurrentHashMap<String, String> taskMap = new ConcurrentHashMap<>();
 
-    private final HashSet<String> hotTask = new HashSet<>();
+    private final HashSet<AotTask> hotTask = new HashSet<>();
 
     private List<AotRouterInterface> routerList = new ArrayList<>();
 
     private final ConcurrentHashMap<String, ResultData> taskResult = new ConcurrentHashMap<>();
 
-    private TaskManager taskManager;
+    private TaskManager(){}
 
     private static class SingletonHolder {
         private static TaskManager instance = new TaskManager();
@@ -32,10 +32,11 @@ class TaskManager {
     }
 
     String addTask(String taskRouter) {
-//        int id = taskIdGenerator.incrementAndGet();
+        int id = taskIdGenerator.incrementAndGet();
+        AotTask aotTask = new AotTask(id, taskRouter);
 //        taskMap.put(id, taskRouter);
-        invokeTask(taskRouter);
-        return taskRouter;
+        invokeTask(aotTask);
+        return aotTask.getTaskKey();
     }
 
     void addRouter(AotRouterInterface aotRouterInterface){
@@ -46,22 +47,28 @@ class TaskManager {
         return hotTask.contains(taskKey);
     }
 
-    private void invokeTask(String taskRouter){
+    private void invokeTask(AotTask aotTask){
         for(AotRouterInterface routerInterface : routerList){
-            if(routerInterface.getMethodMap().containsKey(taskRouter)){
-                String methodName = routerInterface.getMethodMap().get(taskRouter);
-                Class<?> clazz = routerInterface.getClassMap().get(taskRouter);
+            if(routerInterface.getMethodMap().containsKey(aotTask.router)){
+                String methodName = routerInterface.getMethodMap().get(aotTask.router);
+                Class<?> clazz = routerInterface.getClassMap().get(aotTask.router);
                 try {
                     Method method = clazz.getDeclaredMethod(methodName);
                     String modifier = Modifier.toString(method.getModifiers());
-                    hotTask.add(taskRouter);
+                    hotTask.add(aotTask);
                     ResultData resultData;
                     if(modifier.contains("static")){
                         resultData = (ResultData) method.invoke(null);
                     }else {
                         resultData = (ResultData) method.invoke(clazz.newInstance());
                     }
-                    taskResult.put(taskRouter, resultData);
+                    resultData.setTaskKey(aotTask.getTaskKey(), new ResultData.UnRegisterCallback() {
+                        @Override
+                        public void unRegister(String taskKey) {
+                            taskResult.remove(taskKey);
+                        }
+                    });
+                    taskResult.put(aotTask.getTaskKey(), resultData);
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -76,8 +83,8 @@ class TaskManager {
         }
     }
 
-    void consumeTask(String taskRouter, ResultListener listener){
-        ResultData resultData = taskResult.get(taskRouter);
+    void consumeTask(String taskKey, ResultListener listener){
+        ResultData resultData = taskResult.get(taskKey);
         if(resultData!=null){
             resultData.setResultListener(listener);
             resultData.flush();

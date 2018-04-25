@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface AOTLoad {
     String router();
+    String desc() default "";
 }

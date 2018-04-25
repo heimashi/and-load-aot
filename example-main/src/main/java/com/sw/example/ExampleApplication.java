@@ -14,7 +14,7 @@ public class ExampleApplication extends Application{
     }
 
     private void initAotDemo(){
-        AotLoader.add(new ExampleAotIndex());
+        AotLoader.addRouter(new ExampleAotIndex());
     }
 
 }
