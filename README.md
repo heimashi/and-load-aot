@@ -99,21 +99,22 @@ public class ExampleAotIndex implements AotRouterInterface{
 ```
 
 
-- 现在就可以根据方法路由来提前执行加载任务的方法了，当打开Activity时，执行AotLoader.produce
-(methodRouter），会根据传人的方法路由名来定位到申明了该注解路由的方法，然后反射调用执行，AotLoader.produce(methodRouter）的返回值是该任务的ID，将ID以参数的形式Activity
+- 现在就可以根据方法路由来提前执行加载任务的方法了，该框架将加载数据的方法抽象为生产和消费的task，是一个典型的生产者消费者模型。
+当打开Activity前去生产加载数据的task，执行AotLoader.produce(methodRouter），会根据传人的方法路由名来定位到申明了该注解路由的方法，然后反射调用执行，AotLoader.produce
+(methodRouter）的返回值是该任务的ID，将ID以参数的形式传给Activity
 ```java
 public static void invoke(Context context){
     Intent intent = new Intent(context, ExampleActivity.class);
-    intent.putExtra(START_AOT_LOAD_KEY, AotLoader.produce(ExampleAotIndex.EXAMPLE_LOADMOCKDATA));
+    intent.putExtra(START_AOT_LOAD_ID, AotLoader.produce(ExampleAotIndex.EXAMPLE_LOADMOCKDATA));
     context.startActivity(intent);
 }
 ```
 
-- Activity初始化完成并且View准备好以后，就可以根据任务的ID来消费提前加载的数据了：
+- Activity初始化完成并且View准备好以后，就可以根据传递过来的任务的ID来消费提前加载的数据了：
 ```java
-    aotTaskKey = getIntent().getStringExtra(START_AOT_LOAD_KEY);
-    if(AotLoader.isValidTask(aotTaskKey)){
-        AotLoader.consume(aotTaskKey, listener);
+    aotTaskId = getIntent().getStringExtra(START_AOT_LOAD_ID);
+    if(AotLoader.isValidTask(aotTaskId)){
+        AotLoader.consume(aotTaskId, listener);
     }
 ```
 
