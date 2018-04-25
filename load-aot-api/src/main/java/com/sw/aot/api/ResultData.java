@@ -63,6 +63,8 @@ public class ResultData<T> {
             if (unRegisterCallback != null) {
                 unRegisterCallback.unRegister(taskKey);
             }
+            resultListener = null;
+            unRegisterCallback = null;
         }
     }
 

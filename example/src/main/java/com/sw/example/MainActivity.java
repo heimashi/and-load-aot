@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 
     private void startAOTActivity(){
         Intent intent = new Intent(this, ExampleActivity.class);
-        intent.putExtra("AOT_LOADER_TASK", AotLoader.produce(ExampleAotIndex.EXAMPLE_LOADMOCKDATA));
+        intent.putExtra("AOT_LOADER_TASK_KEY", AotLoader.produce(ExampleAotIndex.EXAMPLE_LOADMOCKDATA));
         startActivity(intent);
     }
 }

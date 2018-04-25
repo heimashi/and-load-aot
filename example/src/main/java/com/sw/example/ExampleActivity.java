@@ -28,7 +28,7 @@ public class ExampleActivity extends Activity{
     }
 
     private void initData(){
-        aotTaskKey = getIntent().getStringExtra("AOT_LOADER_TASK");
+        aotTaskKey = getIntent().getStringExtra("AOT_LOADER_TASK_KEY");
         if(AotLoader.isValidTask(aotTaskKey)){
             AotLoader.consume(aotTaskKey, listener);
         }else {
