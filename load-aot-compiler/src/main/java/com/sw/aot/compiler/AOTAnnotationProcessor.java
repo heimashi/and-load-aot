@@ -32,6 +32,7 @@ public class AOTAnnotationProcessor extends AbstractProcessor {
     private final HashMap<String, String> routerMethodMap = new HashMap<>();
     private final HashMap<String, String> routerDescMap = new HashMap<>();
     private final HashMap<String, String> routerClassMap = new HashMap<>();
+    private final HashMap<String, String> routerConstMap = new HashMap<>();
     private String aotIndex;
 
     @Override
@@ -180,6 +181,7 @@ public class AOTAnnotationProcessor extends AbstractProcessor {
             if (routerDescMap.containsKey(router)) {
                 writer.write("    /* " + routerDescMap.get(router) + " */\n");
             }
+            routerConstMap.put(router, sb.toString());
             writer.write("    public static String " + sb.toString() + " = \"" + router + "\";\n");
         }
     }
@@ -188,8 +190,8 @@ public class AOTAnnotationProcessor extends AbstractProcessor {
         for (String router : routerMethodMap.keySet()) {
             String method = routerMethodMap.get(router);
             String fullClass = routerClassMap.get(router);
-            writer.write("         routerMethodMap.put(\"" + router + "\", \"" + method + "\");\n");
-            writer.write("         routerClassMap.put(\"" + router + "\", " + fullClass + ".class );\n");
+            writer.write("         routerMethodMap.put(" + routerConstMap.get(router) + ", \"" + method + "\");\n");
+            writer.write("         routerClassMap.put(" + routerConstMap.get(router) + ", " + fullClass + ".class );\n");
         }
     }
 }
