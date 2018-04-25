@@ -29,9 +29,9 @@ Usage
 
 - 在项目的build.gradle中添加api依赖库以及编译时的注解处理器
 ```groovy
-    annotationProcessor project(':load-aot-compiler')
-    implementation project(':load-aot-api')
-    implementation project(':load-aot-annotation')
+    annotationProcessor 'com.sw.aot.load:load-aot-compiler:1.0.0'
+    implementation 'com.sw.aot.load:load-aot-annotation:1.0.0'
+    implementation 'com.sw.aot.load:load-aot-api:1.0.0'
 ```
 
 - 添加注解处理器的配置信息AOT_INDEX，会在编译器生成该类ExampleAotIndex.java，该类里面含有加载方法的路由信息
@@ -96,6 +96,13 @@ public class ExampleAotIndex implements AotRouterInterface{
     }
 
 }
+```
+
+
+- 在应用启动后注入路由表ExampleAotIndex，一般在Application中：
+```java
+AotLoader.enableLog(true);//是否开始日志
+AotLoader.addRouter(new ExampleAotIndex());//注入加载方法的路由表
 ```
 
 
