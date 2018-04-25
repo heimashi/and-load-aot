@@ -22,10 +22,10 @@ dependencies {
 
 
 publish {
-    userOrg = 'rongandroid'
-    groupId = 'com.rong360.srouter'
-    artifactId = 'srouter-api'
-    publishVersion = '1.0.4'
-    desc = 'srouter api'
+    userOrg = 'heimashi'
+    groupId = 'com.sw.aot.load'
+    artifactId = 'load-aot-api'
+    publishVersion = '1.0.0'
+    desc = 'Android load AOT api'
     website = 'https://github.com/heimashi/and-load-aot'
 }
