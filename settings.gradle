@@ -1,1 +1,1 @@
-include ':example-main', ':load-aot-annotation', ':load-aot-compiler', ':load-aot-api'//, ':example-module'
+include ':example', ':load-aot-annotation', ':load-aot-compiler', ':load-aot-api'//, ':example-module'

@@ -1,7 +1,6 @@
 package com.sw.example;
 
 import com.sw.aot.api.AotLoader;
-import com.sw.example.main.ExampleAotIndex;
 
 import android.app.Application;
 
@@ -14,6 +13,7 @@ public class ExampleApplication extends Application{
     }
 
     private void initAotDemo(){
+        AotLoader.enableLog(true);
         AotLoader.addRouter(new ExampleAotIndex());
     }
 

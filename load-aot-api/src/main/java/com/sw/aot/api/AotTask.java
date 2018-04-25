@@ -1,6 +1,6 @@
 package com.sw.aot.api;
 
-public class AotTask {
+class AotTask {
 
     private int id;
 

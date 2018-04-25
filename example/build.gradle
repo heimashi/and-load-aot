@@ -11,7 +11,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AOT_INDEX: 'com.sw.example.main.ExampleAotIndex']
+                arguments = [AOT_INDEX: 'com.sw.example.ExampleAotIndex']
             }
         }
     }

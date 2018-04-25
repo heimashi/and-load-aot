@@ -15,6 +15,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.tools.Diagnostic;
@@ -107,15 +108,11 @@ public class AOTAnnotationProcessor extends AbstractProcessor {
     }
 
     private boolean checkHasNoErrors(ExecutableElement element, Messager messager) {
-        //        if (!element.getModifiers().contains(Modifier.STATIC)) {
-        //            messager.printMessage(Diagnostic.Kind.ERROR, "AOTLoad method must be static", element);
-        //            return false;
-        //        }
 
-        //        if (!element.getModifiers().contains(Modifier.PUBLIC)) {
-        //            messager.printMessage(Diagnostic.Kind.ERROR, "AOTLoad method must be public", element);
-        //            return false;
-        //        }
+        if (!element.getModifiers().contains(Modifier.PUBLIC)) {
+            messager.printMessage(Diagnostic.Kind.ERROR, "AOTLoad method must be public", element);
+            return false;
+        }
 
         List<? extends VariableElement> parameters = ((ExecutableElement) element).getParameters();
         if (parameters.size() != 0) {
@@ -156,7 +153,7 @@ public class AOTAnnotationProcessor extends AbstractProcessor {
                     + "    public HashMap<String, Class<?>> getClassMap() {\n"
                     + "        return routerClassMap;\n"
                     + "    }");
-            writer.write("}\n");
+            writer.write("\n\n}\n");
         } catch (IOException e) {
             throw new RuntimeException("Could not write source for " + aotIndex, e);
         } finally {

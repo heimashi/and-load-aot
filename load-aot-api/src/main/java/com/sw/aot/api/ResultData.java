@@ -69,4 +69,13 @@ public class ResultData<T> {
     public interface UnRegisterCallback {
         void unRegister(String taskKey);
     }
+
+    @Override
+    public String toString() {
+        return "ResultData{" +
+                "code=" + code +
+                ", data=" + data +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

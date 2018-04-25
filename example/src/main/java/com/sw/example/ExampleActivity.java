@@ -28,7 +28,7 @@ public class ExampleActivity extends Activity{
 
     private void initData(){
         String taskKey = getIntent().getStringExtra("AOT_LOADER_TASK");
-        if(AotLoader.isHotTask(taskKey)){
+        if(AotLoader.isValidTask(taskKey)){
             AotLoader.consume(taskKey, listener);
         }else {
             loadMockData().setResultListener(listener);

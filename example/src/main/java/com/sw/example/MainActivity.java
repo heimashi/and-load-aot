@@ -1,7 +1,6 @@
 package com.sw.example;
 
 import com.sw.aot.api.AotLoader;
-import com.sw.example.main.ExampleAotIndex;
 
 import android.app.Activity;
 import android.content.Intent;
