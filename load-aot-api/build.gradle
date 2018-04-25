@@ -4,15 +4,13 @@ apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 26
 
-
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
-
     }
+
 
 
 }
@@ -29,5 +27,5 @@ publish {
     artifactId = 'srouter-api'
     publishVersion = '1.0.4'
     desc = 'srouter api'
-    website = 'https://github.com/heimashi/DemoIt'
+    website = 'https://github.com/heimashi/and-load-aot'
 }

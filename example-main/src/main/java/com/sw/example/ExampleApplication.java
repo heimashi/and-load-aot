@@ -1,6 +1,6 @@
 package com.sw.example;
 
-import com.sw.aot.api.AotLoad;
+import com.sw.aot.api.AotLoader;
 import com.sw.example.main.ExampleAotIndex;
 
 import android.app.Application;
@@ -14,7 +14,7 @@ public class ExampleApplication extends Application{
     }
 
     private void initAotDemo(){
-        AotLoad.add(new ExampleAotIndex());
+        AotLoader.add(new ExampleAotIndex());
     }
 
 }

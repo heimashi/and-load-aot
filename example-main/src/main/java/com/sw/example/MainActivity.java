@@ -1,9 +1,10 @@
 package com.sw.example;
 
-import com.sw.aot.api.AotLoad;
+import com.sw.aot.api.AotLoader;
 import com.sw.example.main.ExampleAotIndex;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ public class MainActivity extends Activity {
     }
 
     private void startAOTActivity(){
-        int taskId = AotLoad.load(ExampleAotIndex.example_load_mock_data);
+        Intent intent = new Intent(this, ExampleActivity.class);
+        intent.putExtra("AOT_LOADER_TASK", AotLoader.produce(ExampleAotIndex.example_load_mock_data));
+        startActivity(intent);
     }
 }
