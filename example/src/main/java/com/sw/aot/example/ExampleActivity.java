@@ -1,4 +1,4 @@
-package com.sw.example;
+package com.sw.aot.example;
 
 import com.sw.aot.annotation.AOTLoad;
 import com.sw.aot.api.AotLoader;
@@ -6,10 +6,14 @@ import com.sw.aot.api.ResultData;
 import com.sw.aot.api.ResultListener;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class ExampleActivity extends Activity{
+
+    private static final String START_AOT_LOAD_KEY = "AOT_LOADER_TASK_KEY";
 
     private TextView textView;
     private String aotTaskKey;
@@ -28,7 +32,7 @@ public class ExampleActivity extends Activity{
     }
 
     private void initData(){
-        aotTaskKey = getIntent().getStringExtra("AOT_LOADER_TASK_KEY");
+        aotTaskKey = getIntent().getStringExtra(START_AOT_LOAD_KEY);
         if(AotLoader.isValidTask(aotTaskKey)){
             AotLoader.consume(aotTaskKey, listener);
         }else {
@@ -76,5 +80,10 @@ public class ExampleActivity extends Activity{
         return result;
     }
 
+    public static void invoke(Context context){
+        Intent intent = new Intent(context, ExampleActivity.class);
+        intent.putExtra(START_AOT_LOAD_KEY, AotLoader.produce(ExampleAotIndex.EXAMPLE_LOADMOCKDATA));
+        context.startActivity(intent);
+    }
 
 }

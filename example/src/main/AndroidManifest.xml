@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sw.example">
+    package="com.sw.aot.example">
 
     <application
         android:allowBackup="true"
@@ -7,7 +7,7 @@
         android:name=".ExampleApplication"
         android:supportsRtl="true">
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.sw.aot.example.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -15,6 +15,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ExampleActivity"/>
+        <activity android:name="com.sw.aot.example.ExampleActivity"/>
     </application>
 </manifest>

@@ -1,4 +1,4 @@
-package com.sw.example;
+package com.sw.aot.example;
 
 import com.sw.aot.api.AotLoader;
 

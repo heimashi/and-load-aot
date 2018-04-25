@@ -1,9 +1,7 @@
-package com.sw.example;
+package com.sw.aot.example;
 
-import com.sw.aot.api.AotLoader;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,14 +17,9 @@ public class MainActivity extends Activity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAOTActivity();
+                ExampleActivity.invoke(MainActivity.this);
             }
         });
     }
 
-    private void startAOTActivity(){
-        Intent intent = new Intent(this, ExampleActivity.class);
-        intent.putExtra("AOT_LOADER_TASK_KEY", AotLoader.produce(ExampleAotIndex.EXAMPLE_LOADMOCKDATA));
-        startActivity(intent);
-    }
 }

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.sw.example"
+        applicationId "com.sw.aot.example"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
@@ -11,7 +11,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AOT_INDEX: 'com.sw.example.ExampleAotIndex']
+                arguments = [AOT_INDEX: 'com.sw.aot.example.ExampleAotIndex']
             }
         }
     }
