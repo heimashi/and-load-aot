@@ -11,11 +11,11 @@ About
 
 Activity/Fragment/View的初始化一般都会消耗一些时间，例如：
 - 在打开页面Activity时，一般的流程是这样的:
-    - 1、通知AMS进程去创建新的Activity
-    - 2、AMS检查Activity进程是否存在，不存在先创建进程，已经存在就通知该进程创建Activity实例
-    - 3、Activity创建完后加载布局View 
-    - 4、然后去网络中或者数据库中异步请求数据
-    - 5、数据准备好后通知渲染到View上
+  - 1、通知AMS进程去创建新的Activity
+  - 2、AMS检查Activity进程是否存在，不存在先创建进程，已经存在就通知该进程创建Activity实例
+  - 3、Activity创建完后加载布局View 
+  - 4、然后去网络中或者数据库中异步请求数据
+  - 5、数据准备好后通知渲染到View上
     
 - 上面的流程一般是串行的，即要等到Activity准备好后再去请求数据，而准备Activity的过程往往是耗时的过程（例如启动Activity涉及到跨进程、遍历创建View树都是耗时的过程），为什么不把这个过程改为并行的呢？甚至改为提前进行呢？
 
