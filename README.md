@@ -50,22 +50,8 @@ defaultConfig {
 ```java
     @AOTLoad(router = "/Example/LoadMockData")
     public ResultData<String> loadMockData(){
-        final ResultData<String> result = new ResultData<String>();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    result.setCode(0);
-                    result.setData("MOCK: LOAD DATA SUCCESS");
-                    result.flush();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    result.setCode(-1);
-                    result.flush();
-                }
-            }
-        }).start();
+        ResultData<String> result = new ResultData<String>();
+        //load data from server or db ...
         return result;
     }
 ```
@@ -105,7 +91,10 @@ public class ExampleAotIndex implements AotRouterInterface{
 AotLoader.enableLog(true);//是否开始日志
 AotLoader.addRouter(new ExampleAotIndex());//注入加载方法的路由表
 ```
-
+Debug模式下可以开启日志，开启了以后可以查看任务链的日志信息：
+```
+adb logcat -s AOT_LOG
+```
 
 - 现在就可以根据方法路由来提前执行加载任务的方法了，该框架将加载数据的方法抽象为生产和消费的task，是一个典型的生产者消费者模型。
 当打开Activity前去生产加载数据的task，执行AotLoader.produce(methodRouter），会根据传人的方法路由名来定位到申明了该注解路由的方法，然后反射调用执行，AotLoader.produce
