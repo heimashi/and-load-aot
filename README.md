@@ -46,12 +46,28 @@ defaultConfig {
 }
 ```
     
-- 在加载数据的方法上加上@AOTLoad注解，注解的参数router代表着该方法的路由，后面会通过这个路由来调用该方法。    
+- 在加载数据的方法上加上@AOTLoad注解，注解的参数router代表着该方法的路由，后面会通过这个路由来调用该方法。加载数据的方法的返回值需要统一为ResultData<T>， T是具体的实体类型，通过调用ResultData<T>.setData(xxx)填充实体数据，通过调用ResultData<T>.flush()方法来通知数据已经加载完毕
 ```java
     @AOTLoad(router = "/Example/LoadMockData")
     public ResultData<String> loadMockData(){
         ResultData<String> result = new ResultData<String>();
-        //load data from server or db ...
+        //load data from server or db ...
+        //mock load data asyn
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    result.setCode(0);//加载成功
+                    result.setData("MOCK: LOAD DATA SUCCESS");//设置数据
+                    result.flush();//加载完毕
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    result.setCode(-1);//加载失败
+                    result.flush();//加载完毕
+                }
+            }
+        }).start(); 
         return result;
     }
 ```
@@ -114,4 +130,21 @@ public static void invoke(Context context){
         AotLoader.consume(aotTaskId, listener);
     }
 ```
+- 通过上面的回调就可以收到数据更新了，一旦调用了ResultData<T>.flush()就表示加载完毕，此处就会收到通知
+```java
+  private ResultListener<String> listener = new ResultListener<String>() {
+        @Override
+        public void onDataChange(final ResultData<String> data) {
+            //收到数据，更新UI
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(data.getData());
+                }
+            });
+
+        }
+    };
+```
+
 
